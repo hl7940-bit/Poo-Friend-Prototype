@@ -1373,8 +1373,14 @@ function brandRow(){
     + '</header>';
 }
 
+function myRooms(){
+  return state.rooms.filter(function(r){
+    for(var i=0;i<r.members.length;i++){ if(r.members[i].id === 'me') return true; }
+    return false;
+  });
+}
 function viewHome(){
-  var rooms = state.rooms;
+  var rooms = myRooms();
   var active = 0;
   rooms.forEach(function(r){ if(r.sessions.length) active++; });
   if(!rooms.length){
@@ -1510,7 +1516,7 @@ function viewMyPoo(){
 
 function allPeople(){
   var map = {}, order = [];
-  state.rooms.forEach(function(r){
+  myRooms().forEach(function(r){
     r.members.forEach(function(m){
       var key = m.name;
       if(!map[key]){ map[key] = {name:m.name, isMe:(m.id === 'me'), entries:[], rooms:[]}; order.push(key); }
@@ -1623,6 +1629,12 @@ function render(){
   }
   if(state.view === 'room' && !getRoom(state.roomId)){
     state.view = 'tabs'; state.roomId = null;
+  }
+  if(state.view === 'room'){
+    var rr = getRoom(state.roomId);
+    var mm = false;
+    if(rr) for(var q=0;q<rr.members.length;q++){ if(rr.members[q].id === 'me') mm = true; }
+    if(!mm){ state.view = 'tabs'; state.roomId = null; }
   }
   var html;
   if(state.view === 'room') html = viewRoom();
@@ -1860,7 +1872,7 @@ function sheetCalendar(){
     + '<div class="stats">'
     +   '<div class="stat"><b>' + (topName ? esc(topName) : '—') + '</b><span>' + t('cal.topPoo') + '</span></div>'
     +   '<div class="stat"><b>' + (longName ? esc(longName) : '—') + '</b><span>' + t('cal.topLong') + '</span></div>'
-    +   '<div class="stat"><b>' + st.totalN + '</b><span>' + t('cal.total', {n:st.totalN, t:dur(st.totalSec)}) + '</span></div>'
+    +   '<div class="stat"><b>' + t('cal.countUnit', {n:st.totalN}) + '</b><span>' + durText(st.totalSec) + '</span></div>'
     + '</div>'
     + detail;
 }
@@ -1885,10 +1897,9 @@ function sheetRoomAdmin(){
   var head = sheetHead(t('room.admin'), esc(r.name) + ' · ' + t('admin.info', {code:esc(r.code), n:r.members.length}));
   if(!own){
     return head
-      + '<div class="card" style="margin-top:16px">'
-      +   '<p class="sheet-note" style="margin:0">' + t('admin.memberNote', {name:'<b>' + esc(memberName(r, r.ownerId)) + '</b>'}) + '</p>'
-      + '</div>'
-      + '<p class="sheet-note" style="margin-top:14px">' + t('admin.ownerOnly') + '</p>'
+      + '<p class="sheet-note" style="margin-top:18px;font-size:13px;color:var(--ink-2)">'
+      +   t('admin.memberNote', {name:'<b>' + esc(memberName(r, r.ownerId)) + '</b>'}) + '</p>'
+      + '<p class="sheet-note" style="margin-top:6px">' + t('admin.ownerOnly') + '</p>'
       + '<div class="sheet-actions" style="margin-top:22px">'
       +   '<button class="btn danger" type="button" data-action="leaveRoomAsk">' + t('admin.leave') + '</button>'
       + '</div>';
