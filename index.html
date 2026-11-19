@@ -264,7 +264,9 @@ ul{list-style:none;}
 .stall.free{border-style:dashed; color:var(--muted);}
 .stall.busy{background:var(--ra-soft); border-color:transparent; color:var(--ra);}
 .stall.mine{box-shadow:inset 0 0 0 1.6px var(--ra); border-color:transparent; background:var(--ra-soft);}
-.stall .door{width:100%; max-width:64px; color:inherit;}
+.stall .door{width:100%; max-width:52px; color:inherit;}
+.stall .who{width:100%; display:grid; place-items:center; height:64px;}
+.stall .who svg{display:block;}
 .stall .door svg{width:100%; height:auto; display:block;}
 .stall-name{font-size:12px; font-weight:700; letter-spacing:-.2px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .stall.free .stall-name{font-weight:500;}
@@ -639,7 +641,7 @@ ul{list-style:none;}
 .g-score{font-size:15px; font-weight:700; letter-spacing:-.4px; font-variant-numeric:tabular-nums;}
 .g-score em{font-style:normal; font-size:10px; color:var(--muted); font-weight:500; margin-left:6px;}
 .stage-g{
-  position:relative; flex:1; min-height:220px;
+  position:relative; flex:1; min-height:230px; max-height:560px;
   overflow:hidden;
   border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);
@@ -1031,7 +1033,7 @@ var HATS = [
     extra:'<rect x="-26" y="-2" width="52" height="10" rx="5" fill="var(--card)"/><path d="M-26 0.5 L26 0.5" opacity=".3"/><circle cx="0" cy="-20" r="3.6"/>'},
   {id:'cap', name:'hat.cap',
     d:'M-23 1 C-23 -11 -12 -18 0 -18 C12 -18 23 -11 23 1 Z',
-    extra:'<path d="M18 0 C29 -3 35 2 32 6 C27 10 19 7 16 3 Z" fill="var(--card)"/><circle cx="0" cy="-18" r="2.4" fill="currentColor" stroke="none"/>'},
+    extra:'<path d="M14 -1 C28 -3 36 2 33 6 C28 9 18 6 13 2 Z" fill="var(--card)"/><circle cx="0" cy="-18" r="2.4" fill="currentColor" stroke="none"/>'},
   {id:'beret', name:'hat.beret',
     d:'M-26 -2 C-28 -15 -13 -22 2 -21 C17 -20 26 -10 24 -3 C13 4 -13 4 -26 -2 Z',
     extra:'<path d="M4 -21 C4 -25 6 -26 8 -25"/>'},
@@ -1420,13 +1422,16 @@ function viewRoom(){
     var nm = s ? memberName(r, uid) : '';
     var isMine = !!(s && uid === state.user.id);
     var cls = s ? ('busy' + (isMine ? ' mine' : '')) : 'free';
+    var mem = null;
+    for(var mi=0;mi<r.members.length;mi++){ if(r.members[mi].id === uid) mem = r.members[mi]; }
     stalls += '<div class="stall ' + cls + '" data-stall="' + i + '" data-user-id="' + esc(uid) + '"'
       + ' aria-label="' + esc(s ? nm + ' ' + t('room.using') : t('room.free')) + '">'
-      + '<span class="door">' + iconDoor(!!s) + '</span>'
+      + '<span class="who">' + (s ? pooSVG(memberPoo(mem), 62) : iconDoor(false)) + '</span>'
       + '<span class="stall-name">' + esc(s ? nm : t('room.stall', {n:i + 1})) + '</span>'
       + '<span class="stall-sub"' + (s ? ' data-live="' + esc(r.id) + ':' + esc(uid) + '"' : '') + '>'
       +   (s ? dur((Date.now() - s.startedAt) / 1000) : t('room.free')) + '</span>'
-      + (s && s.cheers ? '<span class="tag accent" style="position:absolute;top:8px;right:8px;font-size:9px;padding:1px 5px">♥' + s.cheers + '</span>' : '')
+      + (isMine ? '<span class="tag on" style="position:absolute;top:9px;left:9px;font-size:9px;padding:1px 6px">' + t('badge.you') + '</span>' : '')
+      + (s && s.cheers ? '<span class="tag accent" style="position:absolute;top:9px;right:9px;font-size:9px;padding:1px 5px">♥' + s.cheers + '</span>' : '')
       + '</div>';
   }
   var action;
@@ -2374,10 +2379,10 @@ var MINI = {
   on:false, raf:null, last:0, W:360, H:300,
   speed:250, dist:0, score:0, lives:3, over:false,
   py:0, vy:0, inv:0, obs:[], bricks:[], items:[],
-  nextObs:1.1, nextBrick:2.0, el:null, stage:null
+  nextObs:2.0, nextBrick:2.6, el:null, stage:null
 };
 var G_GROUND = 26, G_PL_X = 46, G_PL_W = 34, G_PL_H = 36;
-var G_JUMP = 660, G_GRAV = 1900, G_BRICK_Y = 118, G_BRICK_H = 26, G_BRICK_W = 40;
+var G_JUMP = 700, G_GRAV = 1900, G_BRICK_Y = 118, G_BRICK_H = 26, G_BRICK_W = 40;
 
 function gameBest(){
   return state.best || 0;
@@ -2438,7 +2443,7 @@ function miniReset(){
   miniClearWorld();
   MINI.speed = 250; MINI.dist = 0; MINI.score = 0; MINI.lives = 3;
   MINI.py = 0; MINI.vy = 0; MINI.inv = 0; MINI.over = false; MINI.last = 0;
-  MINI.nextObs = 1.2; MINI.nextBrick = 2.2;
+  MINI.nextObs = 2.0; MINI.nextBrick = 2.6;
   var st = document.getElementById('g-stage');
   if(st){
     MINI.stage = st;
@@ -2508,14 +2513,11 @@ function miniOver(){
   MINI.raf = null;
   var newBest = false;
   if(MINI.score > gameBest()){ state.best = MINI.score; save(); newBest = true; }
-  var f = document.getElementById('g-final');
-  if(f) f.textContent = MINI.score;
-  var b = document.getElementById('g-best');
-  if(b) b.textContent = gameBest();
   var over = document.getElementById('g-over');
   if(over) over.classList.add('on');
   var s = document.querySelector('#g-over .s');
-  if(s && newBest) s.innerHTML = t('game.newBest') + ' · ' + t('game.score') + ' <em>' + MINI.score + '</em>';
+  if(s) s.innerHTML = (newBest ? t('game.newBest') + ' · ' : '')
+    + t('game.score') + ' <em>' + MINI.score + '</em> · ' + t('game.best') + ' <em>' + gameBest() + '</em>';
   miniHud();
   tone(320, 120, 0.35, 0.2, 'sine');
 }
