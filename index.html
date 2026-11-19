@@ -2529,7 +2529,7 @@ function miniLoop(ts){
   if(dt > 0.06) dt = 0.06;
   if(dt < 0) dt = 0;
 
-  MINI.speed = 250 + Math.min(250, MINI.dist / 55);
+  MINI.speed = 250 + Math.min(230, MINI.dist / 70);
   MINI.dist += MINI.speed * dt;
   var sc = Math.floor(MINI.dist / 9);
   if(sc !== MINI.score){ MINI.score = sc; miniHud(); }
@@ -2553,14 +2553,12 @@ function miniLoop(ts){
   MINI.nextObs -= dt;
   if(MINI.nextObs <= 0){
     spawnToilet();
-    MINI.nextObs = 1.05 + Math.random() * 0.6;
+    MINI.nextObs = 1.15 + Math.random() * 0.55;
   }
   MINI.nextBrick -= dt;
   if(MINI.nextBrick <= 0){
-    var clear = true;
-    for(var c=0;c<MINI.obs.length;c++){ if(MINI.obs[c].x > MINI.W - 160) clear = false; }
-    if(clear) spawnBrick();
-    MINI.nextBrick = 2.6 + Math.random() * 1.8;
+    spawnBrick();
+    MINI.nextBrick = 2.5 + Math.random() * 1.7;
   }
 
   /* obstacles */
