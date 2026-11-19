@@ -2504,13 +2504,14 @@ function miniHit(){
   tone(180, 90, 0.2, 0.22, 'square');
   vibrate(40);
   miniLives();
-  if(MINI.lives <= 0){ miniOver(); }
+  if(MINI.lives <= 0){ miniOver(); return; }
 }
 function miniOver(){
   MINI.over = true;
   MINI.on = false;
   if(MINI.raf) cancelAnimationFrame(MINI.raf);
   MINI.raf = null;
+  MINI.last = 0;
   var newBest = false;
   if(MINI.score > gameBest()){ state.best = MINI.score; save(); newBest = true; }
   var over = document.getElementById('g-over');
@@ -2522,7 +2523,7 @@ function miniOver(){
   tone(320, 120, 0.35, 0.2, 'sine');
 }
 function miniLoop(ts){
-  if(!MINI.on) return;
+  if(!MINI.on || MINI.over) return;
   if(!MINI.last) MINI.last = ts;
   var dt = (ts - MINI.last) / 1000;
   MINI.last = ts;
@@ -2629,6 +2630,8 @@ function miniLoop(ts){
 }
 function openGame(){
   if(!state.user) return;
+  if(MINI.raf) cancelAnimationFrame(MINI.raf);
+  MINI.raf = null;
   buildGame();
   miniReset();
   MINI.on = true;
@@ -2650,12 +2653,13 @@ function closeGame(){
   if(host){ host.innerHTML = ''; host.classList.remove('open'); host.setAttribute('aria-hidden', 'true'); }
 }
 function miniRestart(){
+  if(MINI.raf) cancelAnimationFrame(MINI.raf);
+  MINI.raf = null;
   var over = document.getElementById('g-over');
   if(over) over.classList.remove('on');
   miniReset();
   MINI.on = true;
   MINI.last = 0;
-  if(MINI.raf) cancelAnimationFrame(MINI.raf);
   MINI.raf = requestAnimationFrame(miniLoop);
 }
 /* ===================== session ===================== */
