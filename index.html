@@ -466,14 +466,14 @@ ul{list-style:none;}
 #tabbar:empty{display:none;}
 .tab{
   flex:1;
-  display:flex; flex-direction:column; align-items:center; gap:4px;
-  padding:7px 0 6px;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  padding:8px 0 6px;
   color:var(--muted);
   font-size:10px; font-weight:500; letter-spacing:-.1px;
   border-radius:14px;
   transition:color .15s ease;
 }
-.tab svg{width:23px; height:23px;}
+.tab svg{width:21px; height:21px;}
 .tab.on{color:var(--ink); font-weight:700;}
 .tab.on svg{stroke-width:2.1;}
 
@@ -656,15 +656,15 @@ ul{list-style:none;}
     repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 13px);
   background-position:0 0;
 }
-.g-poo{position:absolute; left:46px; bottom:26px; width:40px; will-change:transform;}
+.g-poo{position:absolute; left:44px; bottom:26px; width:56px; will-change:transform;}
 .g-poo svg{width:100%; height:auto; display:block;}
 .g-poo.hit{animation:flash .18s steps(2) 3;}
 @keyframes flash{50%{opacity:.25;}}
-.g-obs{position:absolute; bottom:26px; width:38px;}
+.g-obs{position:absolute; bottom:26px; width:54px;}
 .g-obs svg{width:100%; height:auto; display:block;}
-.g-brick{position:absolute; bottom:0; width:44px; height:26px;}
+.g-brick{position:absolute; bottom:0; width:64px; height:34px;}
 .g-brick svg{width:100%; height:100%; display:block; color:var(--ink);}
-.g-item{position:absolute; bottom:0; width:26px;}
+.g-item{position:absolute; bottom:0; width:34px;}
 .g-item svg{width:100%; height:auto; display:block;}
 .g-over{
   position:absolute; inset:0; display:none;
@@ -2394,8 +2394,8 @@ var MINI = {
   py:0, vy:0, inv:0, obs:[], bricks:[], items:[],
   nextObs:2.0, nextBrick:2.6, el:null, stage:null
 };
-var G_GROUND = 26, G_PL_X = 46, G_PL_W = 34, G_PL_H = 36;
-var G_JUMP = 700, G_GRAV = 1900, G_BRICK_Y = 118, G_BRICK_H = 26, G_BRICK_W = 44;
+var G_GROUND = 26, G_PL_X = 44, G_PL_W = 46, G_PL_H = 48;
+var G_JUMP = 720, G_GRAV = 1900, G_BRICK_Y = 150, G_BRICK_H = 34, G_BRICK_W = 64;
 
 function gameBest(){
   return state.best || 0;
@@ -2414,7 +2414,7 @@ function buildGame(){
     + '</div>'
     + '<div class="stage-g" id="g-stage">'
     +   '<div class="ground"></div>'
-    +   '<div class="g-poo" id="g-player">' + pooSVG(state.myPoo, 40) + '</div>'
+    +   '<div class="g-poo" id="g-player">' + pooSVG(state.myPoo, 56) + '</div>'
     +   '<div class="g-over" id="g-over"><div>'
     +     '<b>' + t('game.over') + '</b>'
     +     '<p class="s">' + t('game.score') + ' <em id="g-final">0</em> · ' + t('game.best') + ' <em id="g-best">' + gameBest() + '</em></p>'
@@ -2471,7 +2471,7 @@ function miniReset(){
 }
 function miniUpdatePlayer(){
   var pl = document.getElementById('g-player');
-  if(pl) pl.innerHTML = pooSVG(state.myPoo, 40);
+  if(pl) pl.innerHTML = pooSVG(state.myPoo, 56);
 }
 function miniJump(){
   if(!MINI.on || MINI.over) return;
@@ -2486,14 +2486,14 @@ function spawnToilet(){
   el.innerHTML = iconToilet();
   el.style.transform = 'translateX(' + (MINI.W + 40) + 'px)';
   MINI.stage.appendChild(el);
-  MINI.obs.push({x:MINI.W + 40, w:34, h:30, el:el});
+  MINI.obs.push({x:MINI.W + 40, w:46, h:42, el:el});
 }
 function spawnBrick(){
   var el = document.createElement('div');
   el.className = 'g-brick';
-  el.innerHTML = '<svg viewBox="0 0 44 26" fill="none">'
-    + '<rect x="1.2" y="1.2" width="41.6" height="23.6" rx="4" fill="var(--soft)" stroke="currentColor" stroke-width="2.2"/>'
-    + '<path d="M1.2 13.2 L42.8 13.2 M22 1.2 L22 13.2 M10.4 13.2 L10.4 24.8 M33.6 13.2 L33.6 24.8" stroke="currentColor" stroke-width="1.5" opacity=".45"/>'
+  el.innerHTML = '<svg viewBox="0 0 64 34" fill="none">'
+    + '<rect x="1.4" y="1.4" width="61.2" height="31.2" rx="5" fill="var(--soft)" stroke="currentColor" stroke-width="2.4"/>'
+    + '<path d="M1.4 17.4 L62.6 17.4 M32 1.4 L32 17.4 M15.5 17.4 L15.5 32.6 M48.5 17.4 L48.5 32.6" stroke="currentColor" stroke-width="1.6" opacity=".45"/>'
     + '</svg>';
   el.style.transform = 'translateX(' + (MINI.W + 40) + 'px) translateY(-' + G_BRICK_Y + 'px)';
   el.style.bottom = '0';
@@ -2503,7 +2503,7 @@ function spawnBrick(){
 function spawnTP(x, y){
   var el = document.createElement('div');
   el.className = 'g-item';
-  el.innerHTML = iconTP(26);
+  el.innerHTML = iconTP(34);
   el.style.color = 'var(--ink)';
   MINI.stage.appendChild(el);
   MINI.items.push({x:x, y:y, vy:340, el:el});
@@ -2587,7 +2587,7 @@ function miniLoop(ts){
       continue;
     }
     /* toilet: solid from bottom(26) to 56 */
-    if(MINI.py < 30 && pR > o.x + 3 && pL < o.x + o.w - 3){ miniHit(); }
+    if(MINI.py < 42 && pR > o.x + 4 && pL < o.x + o.w - 4){ miniHit(); }
   }
 
   /* bricks */
@@ -2618,7 +2618,7 @@ function miniLoop(ts){
     it.vy -= 1250 * dt;
     it.y += it.vy * dt;
     if(it.el) it.el.style.transform = 'translateX(' + it.x.toFixed(1) + 'px) translateY(-' + it.y.toFixed(1) + 'px)';
-    var cx = it.x + 13, cy = it.y + 10;
+    var cx = it.x + 17, cy = it.y + 13;
     if(cx > pL - 6 && cx < pR + 6 && cy > pBot - 12 && cy < pTop + 6){
       if(it.el && it.el.parentNode) it.el.parentNode.removeChild(it.el);
       MINI.items.splice(i, 1);
