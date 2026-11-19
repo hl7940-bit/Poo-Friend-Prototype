@@ -291,6 +291,7 @@ ul{list-style:none;}
   100%{opacity:0; transform:translate(calc(-50% + var(--dx,0px)),-46px) scale(1.1) rotate(var(--rot,0deg));}
 }
 .hint{font-size:11px; color:var(--muted); text-align:center; margin:12px 0 0; line-height:1.6;}
+.room-code-line{font-size:10px; color:var(--muted); text-align:center; letter-spacing:.5px; margin:22px 0 0; font-variant-numeric:tabular-nums;}
 
 .pooping{
   margin-top:12px;
@@ -1281,7 +1282,7 @@ function ensureSeed(){
   state.friendsPoo = {
     '공동익':{shape:'tall', thick:2, hat:'cap'},
     '민지':{shape:'round', thick:0, hat:'bow'},
-    '준호':{shape:'flat', thick:3, hat:'none'},
+    '준호':{shape:'classic', thick:2, hat:'tp'},
     '서연':{shape:'tip', thick:1, hat:'flower'},
     '동수':{shape:'twins', thick:2, hat:'wizard'}
   };
@@ -1465,7 +1466,8 @@ function viewRoom(){
     + '</header>'
     + '<div class="wall" style="' + hueVars(r) + '">' + stalls + '</div>'
     + '<p class="hint">' + t('room.holdHint') + '</p>'
-    + action;
+    + action
+    + '<p class="room-code-line">' + t('add.code') + ' ' + esc(r.code) + '</p>';
 }
 
 function viewMyPoo(){
