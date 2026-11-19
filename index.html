@@ -253,7 +253,7 @@ ul{list-style:none;}
 .stall{
   position:relative;
   display:flex; flex-direction:column; align-items:center; gap:5px;
-  padding:10px 8px 9px;
+  padding:12px 8px 10px;
   border:1px solid var(--line);
   border-radius:15px;
   background:var(--paper);
@@ -264,9 +264,9 @@ ul{list-style:none;}
 .stall.free{border-style:dashed; color:var(--muted);}
 .stall.busy{background:var(--ra-soft); border-color:transparent; color:var(--ra);}
 .stall.mine{box-shadow:inset 0 0 0 1.6px var(--ra); border-color:transparent; background:var(--ra-soft);}
-.stall .door{width:100%; max-width:52px; color:inherit;}
-.stall .who{width:100%; display:grid; place-items:center; height:64px;}
-.stall .who svg{display:block;}
+.stall .who{width:100%; display:grid; place-items:center; height:78px; color:inherit;}
+.stall .who svg{display:block; width:auto; height:100%; max-width:100%;}
+.stall.free .who svg{height:74px;}
 .stall .door svg{width:100%; height:auto; display:block;}
 .stall-name{font-size:12px; font-weight:700; letter-spacing:-.2px; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .stall.free .stall-name{font-weight:500;}
