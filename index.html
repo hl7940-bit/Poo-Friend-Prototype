@@ -1903,6 +1903,7 @@ function sheetRoomAdmin(){
       +   t('admin.memberNote', {name:'<b>' + esc(memberName(r, r.ownerId)) + '</b>'}) + '</p>'
       + '<p class="sheet-note" style="margin-top:6px">' + t('admin.ownerOnly') + '</p>'
       + '<div class="sheet-actions" style="margin-top:22px">'
+      +   '<button class="btn" type="button" data-action="addFriend">' + t('friend.title') + '</button>'
       +   '<button class="btn danger" type="button" data-action="leaveRoomAsk">' + t('admin.leave') + '</button>'
       + '</div>';
   }
@@ -1924,6 +1925,9 @@ function sheetRoomAdmin(){
     +   '<button class="btn ink" type="button" data-action="saveColor">' + t('admin.saveColor') + '</button>'
     + '</div>'
     + '<div class="divider"></div>'
+    + '<div class="sheet-actions">'
+    +   '<button class="btn" type="button" data-action="addFriend">' + t('friend.title') + '</button>'
+    + '</div>'
     + '<div class="sheet-actions">'
     +   '<button class="btn danger" type="button" data-action="deleteRoomAsk">' + t('admin.delete') + '</button>'
     + '</div>';
