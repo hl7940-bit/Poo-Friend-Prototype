@@ -643,6 +643,7 @@ ul{list-style:none;}
 
 /* toast */
 #toast-layer{position:absolute; left:0; right:0; bottom:calc(88px + env(safe-area-inset-bottom,0px)); display:flex; justify-content:center; pointer-events:none; z-index:110;}
+body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 104px); bottom:auto;}
 .toast{
   background:var(--ink); color:var(--paper);
   padding:11px 20px; border-radius:16px 12px 15px 13px / 13px 16px 12px 15px;
@@ -2793,6 +2794,7 @@ function openGame(){
   if(!state.user) return;
   if(MINI.raf) cancelAnimationFrame(MINI.raf);
   MINI.raf = null;
+  document.body.classList.add('gaming');
   buildGame();
   miniReset();
   MINI.on = true;
@@ -2807,6 +2809,7 @@ function openGame(){
 }
 function closeGame(){
   MINI.on = false;
+  document.body.classList.remove('gaming');
   if(MINI.raf) cancelAnimationFrame(MINI.raf);
   MINI.raf = null;
   miniClearWorld();
