@@ -680,7 +680,7 @@ ul{list-style:none;}
 .g-score{font-size:17px; font-weight:700; letter-spacing:-.3px; font-variant-numeric:tabular-nums;}
 .g-score em{font-style:normal; font-size:11px; color:var(--muted); font-weight:400; margin-left:6px;}
 .stage-g{
-  position:relative; flex:1; min-height:240px; max-height:560px;
+  position:relative; flex:1; min-height:240px; max-height:470px;
   overflow:hidden;
   border-top:1.3px dashed var(--line-2);
   border-bottom:1.3px solid var(--line-2);
@@ -700,7 +700,7 @@ ul{list-style:none;}
 @keyframes flash{50%{opacity:.25;}}
 .g-obs{position:absolute; bottom:26px; width:54px;}
 .g-obs svg{width:100%; height:auto; display:block; filter:url(#wobble-soft);}
-.g-item{position:absolute; bottom:26px; width:38px;}
+.g-item{position:absolute; bottom:26px; width:44px;}
 .g-item svg{width:100%; height:auto; display:block; filter:url(#wobble-soft);}
 .g-item:after{
   content:''; position:absolute; left:14%; right:14%; bottom:-5px; height:4px;
@@ -1230,10 +1230,12 @@ function iconFlush(){
 }
 function iconTP(size){
   var w = size || 26;
-  return '<svg viewBox="0 0 64 56" width="' + w + '" height="' + Math.round(w * 0.875) + '" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">'
-    + '<circle cx="28" cy="21" r="15" fill="var(--card)"/>'
-    + '<circle cx="28" cy="21" r="4.6"/>'
-    + '<path d="M13 25 L13 49 q7 5 15 0 q8 -5 15 0 L43 23"/>'
+  return '<svg viewBox="0 0 64 64" width="' + w + '" height="' + w + '" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
+    + '<path d="M14 19 L14 45 C14 51.5 21.2 56 30 56 C38.8 56 46 51.5 46 45 L46 19" fill="var(--card)"/>'
+    + '<ellipse cx="30" cy="19" rx="16" ry="6.6" fill="var(--card)"/>'
+    + '<ellipse cx="30" cy="19" rx="5.2" ry="2.6"/>'
+    + '<path d="M46 25 C50.4 26.4 51.4 32 49.2 37.4 L46.4 44"/>'
+    + '<path d="M18.6 22.6 L18.6 43" opacity=".4"/>'
     + '</svg>';
 }
 function iconGame(){
@@ -1398,8 +1400,8 @@ function resetDemo(){
 function hueVars(room){
   var h = (room && typeof room.hue === 'number') ? room.hue : null;
   if(h === null) return '--ra:var(--ink); --ra-soft:var(--soft);';
-  if(state.theme === 'dark') return '--ra:hsl(' + h + ' 62% 72%); --ra-soft:hsl(' + h + ' 24% 20%);';
-  return '--ra:hsl(' + h + ' 46% 40%); --ra-soft:hsl(' + h + ' 52% 94%);';
+  if(state.theme === 'dark') return '--ra:hsl(' + h + ' 34% 68%); --ra-soft:hsl(' + h + ' 16% 19%);';
+  return '--ra:hsl(' + h + ' 30% 38%); --ra-soft:hsl(' + h + ' 26% 92%);';
 }
 
 function viewAuth(){
@@ -2551,7 +2553,7 @@ var MINI = {
   nextObs:2.0, nextItem:1.8, el:null, stage:null
 };
 var G_GROUND = 26, G_PL_X = 44, G_PL_W = 46, G_PL_H = 48;
-var G_JUMP = 700, G_GRAV = 1900, G_TP_W = 38, G_TP_H = 33, G_TP_LIFT = 4;
+var G_JUMP = 700, G_GRAV = 1900, G_TP_W = 44, G_TP_H = 38, G_TP_LIFT = 4;
 
 function gameBest(){
   return state.best || 0;
