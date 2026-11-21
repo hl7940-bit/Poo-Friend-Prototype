@@ -63,8 +63,8 @@ body{
   color:var(--ink);
   font-family:var(--hand);
   font-weight:400;
-  font-size:19px;
-  line-height:1.45;
+  font-size:21px;
+  line-height:1.4;
   letter-spacing:0;
   -webkit-font-smoothing:antialiased;
   -webkit-text-size-adjust:100%;
@@ -151,7 +151,7 @@ ul{list-style:none;}
 .lede{font-family:var(--hand); font-size:18px; color:var(--muted); margin:10px 0 22px; line-height:1.5;}
 .lede b{color:var(--ink); font-weight:400;}
 .sec-h{font-size:14px; color:var(--muted); margin:28px 0 10px;}
-.foot{font-family:var(--hand); margin:28px 2px 0; font-size:17px; color:var(--muted); text-align:center; line-height:1.6;}
+.foot{font-family:var(--hand); margin:28px 2px 0; font-size:18px; color:var(--muted); text-align:center; line-height:1.6;}
 .divider{height:0; border-top:1.5px solid var(--line); margin:20px 0;}
 
 /* ---------- buttons ---------- */
@@ -170,6 +170,7 @@ ul{list-style:none;}
 }
 .btn:active{transform:translateY(1px) scale(.98);}
 .btn.wide{width:100%;}
+.btn{font-size:24px;}
 .btn.sm{padding:8px 16px; font-size:18px;}
 .btn.big{padding:15px 24px; font-size:26px;}
 .btn.ink{color:var(--bg);}
@@ -229,10 +230,10 @@ ul{list-style:none;}
 .room-door{width:56px; flex:none; color:var(--ink);}
 .room-door svg{width:100%; height:auto; display:block; overflow:visible;}
 .room-info{flex:1; min-width:0;}
-.room-name{display:block; font-family:var(--hand); font-size:29px; letter-spacing:0; line-height:1.1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.room-meta{display:block; font-family:var(--hand); font-size:18px; color:var(--muted); margin-top:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.room-name{display:block; font-family:var(--hand); font-size:31px; letter-spacing:0; line-height:1.1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.room-meta{display:block; font-family:var(--hand); font-size:19px; color:var(--muted); margin-top:5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .room-meta .live{color:var(--ink);}
-.room-meta .dotsep{margin:0 5px; opacity:.5;}
+.room-meta .dotsep{margin:0 6px; opacity:.45;}
 .room-side{flex:none; display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
 .room-go{width:18px; color:var(--muted);}
 .room-go svg{width:100%; height:auto; display:block; overflow:visible;}
@@ -259,8 +260,8 @@ ul{list-style:none;}
 /* ---------- restroom ---------- */
 .room-top{display:flex; align-items:center; gap:8px; padding:16px 0 14px;}
 .room-title{flex:1; min-width:0;}
-.room-title b{display:block; font-family:var(--hand); font-size:29px; font-weight:400; letter-spacing:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.room-title span{display:block; font-family:var(--hand); font-size:17px; color:var(--muted); margin-top:2px;}
+.room-title b{display:block; font-family:var(--hand); font-size:31px; font-weight:400; letter-spacing:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.room-title span{display:block; font-family:var(--hand); font-size:18px; color:var(--muted); margin-top:2px;}
 .wall{
   position:relative;
   display:grid; grid-template-columns:1fr 1fr; gap:14px;
@@ -280,8 +281,8 @@ ul{list-style:none;}
 .stall .who{width:100%; display:grid; place-items:center; height:84px; color:inherit;}
 .stall .who svg{display:block; width:auto; height:100%; max-width:100%; overflow:visible;}
 .stall.free .who svg{height:78px;}
-.stall-name{font-family:var(--hand); font-size:21px; letter-spacing:0; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.stall-sub{font-family:var(--hand); font-size:17px; color:var(--muted); font-variant-numeric:tabular-nums;}
+.stall-name{font-family:var(--hand); font-size:23px; letter-spacing:0; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.stall-sub{font-family:var(--hand); font-size:18px; color:var(--muted); font-variant-numeric:tabular-nums;}
 .stall.busy .stall-sub{color:var(--ink);}
 .stall.knock{animation:knock .42s ease;}
 @keyframes knock{
@@ -301,8 +302,8 @@ ul{list-style:none;}
   20%{opacity:1;}
   100%{opacity:0; transform:translate(calc(-50% + var(--dx,0px)),-46px) scale(1.1) rotate(var(--rot,0deg));}
 }
-.hint{font-family:var(--hand); font-size:17px; color:var(--muted); text-align:center; margin:16px 0 0; line-height:1.5;}
-.room-code-line{font-family:var(--hand-ui); font-size:12px; color:var(--muted); text-align:center; letter-spacing:1px; margin:26px 0 0;}
+.hint{font-family:var(--hand); font-size:18px; color:var(--muted); text-align:center; margin:16px 0 0; line-height:1.5;}
+.room-code-line{font-family:var(--hand); font-size:14px; color:var(--muted); text-align:center; letter-spacing:1px; margin:26px 0 0;}
 
 .pooping{
   position:relative;
@@ -310,11 +311,11 @@ ul{list-style:none;}
   padding:24px 18px 18px;
   text-align:center;
 }
-.pooping .timer{font-family:var(--hand); font-size:52px; letter-spacing:0; font-variant-numeric:tabular-nums; line-height:1;}
-.pooping .sub{font-family:var(--hand); font-size:19px; color:var(--muted); margin:6px 0 18px;}
+.pooping .timer{font-family:var(--hand); font-size:56px; letter-spacing:0; font-variant-numeric:tabular-nums; line-height:1;}
+.pooping .sub{font-family:var(--hand); font-size:20px; color:var(--muted); margin:6px 0 18px;}
 .pooping .two{display:flex; gap:12px; align-items:stretch;}
 .pooping .two .btn{flex:1;}
-.silent-note{font-family:var(--hand); font-size:16px; color:var(--muted); margin:14px 2px 0; line-height:1.5;}
+.silent-note{font-family:var(--hand); font-size:17px; color:var(--muted); margin:14px 2px 0; line-height:1.5;}
 .enter-wrap{margin-top:20px;}
 .big-poop-btn{
   position:relative;
@@ -483,10 +484,10 @@ ul{list-style:none;}
   color:var(--muted);
   transition:color .15s ease;
 }
-.tab .t-ic{display:block; height:31px;}
-.tab .t-ic svg{display:block; width:31px; height:31px; overflow:visible;}
-.tab .t-lb{display:block; height:15px;}
-.tab .t-lb svg{display:block; height:15px; width:auto; overflow:visible; margin:0 auto;}
+.tab .t-ic{display:block; height:35px;}
+.tab .t-ic svg{display:block; width:35px; height:35px; overflow:visible;}
+.tab .t-lb{display:block; height:17px;}
+.tab .t-lb svg{display:block; height:17px; width:auto; overflow:visible; margin:0 auto;}
 .tab.on{color:var(--ink);}
 .tab.on .t-ic{transform:rotate(-1.2deg);}
 
@@ -642,8 +643,8 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 
 /* ---------- game ---------- */
 #game{position:fixed; inset:0; z-index:80; display:none; background:var(--bg);}
-#game.open{display:flex; flex-direction:column;}
-.g-wrap{width:100%; max-width:430px; margin:0 auto; flex:1; display:flex; flex-direction:column; min-height:0;}
+#game.open{display:flex; flex-direction:column; align-items:center; justify-content:center;}
+.g-wrap{width:100%; max-width:430px; margin:0 auto; flex:1; max-height:min(940px,100dvh); display:flex; flex-direction:column; min-height:0;}
 .g-head{display:flex; align-items:flex-start; gap:12px; padding:16px 20px 8px;}
 .g-head .t{flex:1;}
 .g-head .t b{display:block; font-family:var(--hand); font-size:27px; font-weight:400; letter-spacing:0; line-height:1.1;}
@@ -655,15 +656,15 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 .g-score em{font-style:normal; font-family:var(--hand); font-size:14px; color:var(--muted); margin-left:7px;}
 .g-speed{font-family:var(--hand); font-size:14px; color:var(--muted);}
 .stage-g{
-  position:relative; flex:1; min-height:250px; max-height:460px;
+  position:relative; flex:1; min-height:260px;
   overflow:hidden;
   touch-action:manipulation;
   background:var(--bg);
 }
 .stage-g .gsky{position:absolute; inset:0; pointer-events:none; opacity:.5;}
-.stage-g .gground{position:absolute; left:0; right:0; bottom:0; height:34px; pointer-events:none;}
-.stage-g .gground svg{display:block; width:100%; height:34px; overflow:visible;}
-.g-poo{position:absolute; left:0; bottom:34px; width:60px; height:60px; will-change:transform;}
+.stage-g .gground{position:absolute; left:0; right:0; bottom:0; height:40px; pointer-events:none;}
+.stage-g .gground svg{display:block; width:100%; height:40px; overflow:visible;}
+.g-poo{position:absolute; left:0; bottom:40px; width:68px; height:68px; will-change:transform;}
 .g-poo .g-poo-in{width:100%; height:100%; transform-origin:50% 100%;}
 .g-poo svg{width:100%; height:100%; display:block; overflow:visible;}
 .g-poo.run .g-poo-in{animation:grun .42s ease-in-out infinite;}
@@ -674,11 +675,11 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 }
 .g-poo.hit .g-poo-in{animation:flash .3s steps(2) 2;}
 @keyframes flash{50%{opacity:.2;}}
-.g-shadow{position:absolute; left:0; bottom:32px; width:60px; height:12px; pointer-events:none;}
+.g-shadow{position:absolute; left:0; bottom:38px; width:68px; height:13px; pointer-events:none;}
 .g-shadow svg{display:block; width:100%; height:12px; overflow:visible;}
-.g-obs{position:absolute; left:0; bottom:34px; width:54px; height:50px; will-change:transform;}
+.g-obs{position:absolute; left:0; bottom:40px; width:60px; height:56px; will-change:transform;}
 .g-obs svg{display:block; width:100%; height:100%; overflow:visible;}
-.g-item{position:absolute; left:0; bottom:34px; width:42px; height:42px; will-change:transform;}
+.g-item{position:absolute; left:0; bottom:40px; width:46px; height:46px; will-change:transform;}
 .g-item svg{display:block; width:100%; height:100%; overflow:visible;}
 .g-over{
   position:absolute; inset:0; display:none;
@@ -1130,7 +1131,7 @@ function pooSVG(cfg, size, opt){
   cfg = cfg || {};
   var sh = shapeById(cfg.shape);
   var sx = THICKS[cfg.thick] || 1;
-  var sw = size >= 120 ? 2.8 : size >= 80 ? 3.0 : size >= 50 ? 4.2 : 4.6;
+  var sw = size >= 120 ? 2.8 : size >= 80 ? 3.0 : size >= 50 ? 4.8 : 5.2;
   var free = 'var(--poo)';
   var out = '<svg viewBox="0 0 120 120" width="' + size + '" height="' + Math.round(size) + '" aria-hidden="true" style="overflow:visible">';
   out += '<g transform="translate(60 0) scale(' + sx + ' 1) translate(-60 0)">';
@@ -1426,12 +1427,12 @@ function floorLine(){
 }
 function groundArt(){
   var w = 430;
-  return '<svg viewBox="0 0 ' + w + ' 34" preserveAspectRatio="none" aria-hidden="true">'
-    + '<path d="M0 5 C60 2.6 130 7 200 4.4 S 340 2 430 5.2" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>'
-    + '<g stroke="var(--line-2)" stroke-width="1.5" stroke-linecap="round">'
-    + '<path d="M18 12 L14 31"/><path d="M52 11 L48 30"/><path d="M88 13 L84 31"/><path d="M124 11 L120 30"/><path d="M160 13 L156 31"/>'
-    + '<path d="M196 11 L192 30"/><path d="M232 13 L228 31"/><path d="M268 11 L264 30"/><path d="M304 13 L300 31"/><path d="M340 11 L336 30"/>'
-    + '<path d="M376 13 L372 31"/><path d="M410 11 L406 30"/>'
+  return '<svg viewBox="0 0 ' + w + ' 40" preserveAspectRatio="none" aria-hidden="true">'
+    + '<path d="M0 6 C60 3 130 8.4 200 5.4 S 340 2.4 430 6.2" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round"/>'
+    + '<g stroke="var(--line-2)" stroke-width="1.6" stroke-linecap="round">'
+    + '<path d="M16 14 L11 37"/><path d="M50 13 L45 36"/><path d="M86 15 L81 37"/><path d="M122 13 L117 36"/><path d="M158 15 L153 37"/>'
+    + '<path d="M194 13 L189 36"/><path d="M230 15 L225 37"/><path d="M266 13 L261 36"/><path d="M302 15 L297 37"/><path d="M338 13 L333 36"/>'
+    + '<path d="M374 15 L369 37"/><path d="M410 13 L405 36"/>'
     + '</g></svg>';
 }
 function shadowArt(){
@@ -2744,8 +2745,8 @@ var MINI = {
   nextObs:0, nextItem:0, grace:0, lvl:0, runState:null, coyote:0
 };
 var GG = {
-  grav:2000, jump:720, plX:38, plW:44, plH:46, ground:34,
-  obsW:54, obsH:50, tpW:42, tpBox:40
+  grav:2000, jump:720, plX:34, plW:50, plH:52, ground:40,
+  obsW:60, obsH:56, tpW:46, tpBox:44
 };
 
 function gameBest(){ return state.best || 0; }
@@ -2768,7 +2769,7 @@ function buildGame(){
     + '<div class="stage-g" id="g-stage">'
     +   '<div class="gground">' + groundArt() + '</div>'
     +   '<div class="g-shadow" id="g-shadow">' + shadowArt() + '</div>'
-    +   '<div class="g-poo run" id="g-player"><div class="g-poo-in">' + pooSVG(state.myPoo, 60) + '</div></div>'
+    +   '<div class="g-poo run" id="g-player"><div class="g-poo-in">' + pooSVG(state.myPoo, 68) + '</div></div>'
     +   '<div class="g-over" id="g-over"><div class="bx">'
     +     '<b>' + t('game.over') + '</b>'
     +     '<p class="s">' + t('game.score') + ' <em id="g-final">0</em> · ' + t('game.best') + ' <em id="g-best">' + gameBest() + '</em></p>'
@@ -2834,7 +2835,7 @@ function miniReset(){
 }
 function miniUpdatePlayer(){
   var pl = document.querySelector('#g-player .g-poo-in');
-  if(pl) pl.innerHTML = pooSVG(state.myPoo, 60);
+  if(pl) pl.innerHTML = pooSVG(state.myPoo, 68);
 }
 function miniJump(){
   if(!MINI.on || MINI.over) return;
@@ -2879,8 +2880,8 @@ function spawnPattern(){
   if(r < p3) n = 3;
   else if(r < p3 + p2) n = 2;
   var base = MINI.W + 46;
-  for(var i=0;i<n;i++) spawnToilet(base + i * (GG.obsW + 8));
-  MINI.nextObs = (gapDist() + (n - 1) * (GG.obsW + 8)) / MINI.speed;
+  for(var i=0;i<n;i++) spawnToilet(base + i * (GG.obsW + 10));
+  MINI.nextObs = (gapDist() + (n - 1) * (GG.obsW + 10)) / MINI.speed;
 }
 function miniHit(){
   if(MINI.inv > 0 || MINI.over) return;
@@ -2977,7 +2978,7 @@ function miniLoop(ts){
       MINI.obs.splice(i, 1);
       continue;
     }
-    if(pR > o.x + 6 && pL < o.x + o.w - 6 && pB < o.h - 8) miniHit();
+    if(pR > o.x + 6 && pL < o.x + o.w - 6 && pB < o.h - 10) miniHit();
   }
 
   /* --- toilet paper: spawned once, only removed after it passes, never re-created --- */
@@ -2990,7 +2991,7 @@ function miniLoop(ts){
       MINI.items.splice(i, 1);
       continue;
     }
-    if(pR > it.x + 4 && pL < it.x + GG.tpBox - 4 && pB < GG.tpBox + 14){
+    if(pR > it.x + 4 && pL < it.x + GG.tpBox - 2 && pB < GG.tpBox + 18){
       if(it.el && it.el.parentNode) it.el.parentNode.removeChild(it.el);
       MINI.items.splice(i, 1);
       if(MINI.lives < 4){
