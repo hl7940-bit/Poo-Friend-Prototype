@@ -337,7 +337,6 @@ ul{list-style:none;}
   display:grid; place-items:center;
   min-height:262px;
   padding:24px;
-  overflow:hidden;
 }
 .stage .floor{
   position:absolute; left:16%; right:16%; bottom:42px;
@@ -1282,11 +1281,11 @@ function roughRect(w, h, r, seed, amp){
   }
   return d + ' Z';
 }
-var SK_SEL = '.bx,.card,.room,.wall,.stall,.pooping,.big-poop-btn,.btn,.add-btn,.ocard,.frow,.stat,.empty,.panel,.stage,.profile-stage,.toast,.field input,.lang-grid button,.seg-mini button,.cell.has,.cell.sel,.ib,.x,.cal-nav button,.sw';
+var SK_SEL = '.bx,.knob,.card,.room,.wall,.stall,.pooping,.big-poop-btn,.btn,.add-btn,.ocard,.frow,.stat,.empty,.panel,.stage,.profile-stage,.toast,.field input,.lang-grid button,.seg-mini button,.cell.has,.cell.sel,.ib,.x,.cal-nav button,.sw';
 var skSeed = 3;
 function skRadius(el, w, h){
   var cl = el.className || '';
-  if(/btn|add-btn|stat|empty|toast|sw|ib\b|lang-grid|seg-mini|cal-nav|\bx\b/.test(cl)) return Math.min(h / 2, 26);
+  if(/btn|add-btn|stat|empty|toast|sw|knob|ib\b|lang-grid|seg-mini|cal-nav|\bx\b/.test(cl)) return Math.min(h / 2, 26);
   if(/cell/.test(cl)) return 10;
   if(/field/.test(cl)) return 12;
   if(/sav|grab/.test(cl)) return 4;
@@ -1294,7 +1293,7 @@ function skRadius(el, w, h){
 }
 function skAmp(el, w, h){
   var cl = el.className || '';
-  if(/btn|add-btn|ib\b|\bx\b|sw|lang-grid|seg-mini/.test(cl)) return 1.15;
+  if(/btn|add-btn|ib\b|\bx\b|sw|knob|lang-grid|seg-mini/.test(cl)) return 1.15;
   if(/stall|ocard|cell|stat|field/.test(cl)) return 1.25;
   return 1.8;
 }
@@ -1308,10 +1307,12 @@ function skPaint(el){
   el.classList.add('sk');
   var filled = el.matches('.btn.ink,.toast,.tag.new,.cell.sel');
   var r = skRadius(el, w, h), amp = skAmp(el, w, h);
-  var d = roughRect(w + 4, h + 4, r, skSeed++, amp);
+  /* scroll containers clip the outline, so draw those frames a little inside */
+  var pad = el.matches('.panel') ? 5 : 0;
+  var d = roughRect(w + 4 - pad * 2, h + 4 - pad * 2, Math.max(2, r - pad), skSeed++, amp);
   if(!d) return;
-  var sw = /stall|ocard|cell|field|stat/.test(el.className) ? 1.7 : 2.1;
-  var svg = '<svg class="skf" viewBox="0 0 ' + (w + 4) + ' ' + (h + 4) + '" width="' + (w + 4) + '" height="' + (h + 4) + '" aria-hidden="true"><path class="' + (filled ? 'skf-fill' : '') + '" d="' + d + '" fill="' + (filled ? 'var(--ink)' : 'none') + '" stroke="var(--ink)" stroke-width="' + (filled ? sw + 2.4 : sw) + '"/></svg>';
+  var sw = /stall|ocard|cell|field|stat|knob/.test(el.className) ? 1.6 : 2.1;
+  var svg = '<svg class="skf" viewBox="0 0 ' + (w + 4) + ' ' + (h + 4) + '" width="' + (w + 4) + '" height="' + (h + 4) + '" aria-hidden="true"><path class="' + (filled ? 'skf-fill' : '') + '" transform="translate(' + pad + ',' + pad + ')" d="' + d + '" fill="' + (filled ? 'var(--ink)' : 'none') + '" stroke="var(--ink)" stroke-width="' + (filled ? sw + 2.4 : sw) + '"/></svg>';
   el.insertAdjacentHTML('afterbegin', svg);
 }
 function paintFrames(root){
