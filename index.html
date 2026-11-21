@@ -59,6 +59,7 @@
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 html,body{height:100%; margin:0;}
 body{
+  -webkit-text-stroke:0.28px currentColor;
   background:var(--bg);
   color:var(--ink);
   font-family:var(--hand);
@@ -656,7 +657,7 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 .g-score em{font-style:normal; font-family:var(--hand); font-size:14px; color:var(--muted); margin-left:7px;}
 .g-speed{font-family:var(--hand); font-size:14px; color:var(--muted);}
 .stage-g{
-  position:relative; flex:1; min-height:260px;
+  position:relative; flex:1; min-height:260px; max-height:600px;
   overflow:hidden;
   touch-action:manipulation;
   background:var(--bg);
@@ -2942,7 +2943,7 @@ function miniLoop(ts){
       MINI.runState = running ? 'run' : 'air';
       if(running) pl.classList.add('run'); else pl.classList.remove('run');
     }
-    pl.style.opacity = (MINI.inv > 0 && Math.floor(MINI.inv * 12) % 2 === 0) ? '.35' : '1';
+    pl.style.opacity = (MINI.inv > 0 && Math.floor(MINI.inv * 12) % 2 === 0) ? '.55' : '1';
   }
   var sh = document.getElementById('g-shadow');
   if(sh){
