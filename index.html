@@ -2872,9 +2872,6 @@ var GG = {
   apex:215, hitMargin:0.15
 };
 
-/* QA telemetry (temporary build only — removed before ship) */
-window.__qa = {maxPy:0, airStart:0, airs:[], hits:0, pass:[], groups:[], auto:(location.search.indexOf('qa=1') >= 0), t0:performance.now()};
-
 function gameBest(){ return state.best || 0; }
 
 function buildGame(){
@@ -3006,12 +3003,10 @@ function spawnPattern(){
   else if(r < p3 + p2) n = 2;
   var base = MINI.W + 46;
   for(var i=0;i<n;i++) spawnToilet(base + i * (GG.obsW + 10));
-  if(window.__qa) for(var qi=MINI.obs.length-n; qi<MINI.obs.length; qi++) MINI.obs[qi].qaN = n;
   MINI.nextObs = (gapDist() + (n - 1) * (GG.obsW + 10)) / MINI.speed;
 }
 function miniHit(){
   if(MINI.inv > 0 || MINI.over) return;
-  if(window.__qa) window.__qa.hits++;
   MINI.lives--;
   MINI.inv = 1.1;
   var pl = document.getElementById('g-player');
@@ -3061,11 +3056,6 @@ function miniLoop(ts){
   MINI.vy -= GG.grav * dt;
   MINI.py += MINI.vy * dt;
   if(MINI.py <= 0){ MINI.py = 0; MINI.vy = 0; MINI.coyote = 0; }
-  if(window.__qa){
-    if(MINI.py > window.__qa.maxPy) window.__qa.maxPy = MINI.py;
-    if(MINI.py > 1 && !window.__qa.airStart) window.__qa.airStart = performance.now();
-    if(MINI.py <= 0 && window.__qa.airStart){ window.__qa.airs.push(Math.round(performance.now() - window.__qa.airStart)); window.__qa.airStart = 0; }
-  }
   var pl = document.getElementById('g-player');
   if(pl){
     pl.style.transform = 'translate3d(0,' + (-MINI.py).toFixed(1) + 'px,0)';
@@ -3108,18 +3098,11 @@ function miniLoop(ts){
     o.x -= MINI.speed * dt;
     if(o.el) o.el.style.transform = 'translate3d(' + o.x.toFixed(1) + 'px,0,0)';
     if(o.x + o.w < -30){
-      if(window.__qa && o.qaMin !== undefined) window.__qa.groups.push({n:o.qaN||1, min:Math.round(o.qaMin), hit:!!o.qaHit});
       if(o.el && o.el.parentNode) o.el.parentNode.removeChild(o.el);
       MINI.obs.splice(i, 1);
       continue;
     }
-    var oHit = (pR > o.x + o.w * M && pL < o.x + o.w * (1 - M) && pB < o.h * (1 - M));
-    if(oHit) miniHit();
-    if(window.__qa && pR > o.x - 4 && pL < o.x + o.w + 4){
-      if(o.qaMin === undefined) o.qaMin = 1e9;
-      o.qaMin = Math.min(o.qaMin, pB);
-      if(oHit) o.qaHit = true;
-    }
+    if(pR > o.x + o.w * M && pL < o.x + o.w * (1 - M) && pB < o.h * (1 - M)) miniHit();
   }
 
   /* --- toilet paper: spawned once, only removed after it passes, never re-created --- */
@@ -3148,14 +3131,6 @@ function miniLoop(ts){
     }
   }
 
-  if(window.__qa && window.__qa.auto && !MINI.over && MINI.py <= 0.5){
-    var near = null;
-    for(i=0;i<MINI.obs.length;i++){
-      var oo = MINI.obs[i];
-      if(oo.x + oo.w >= pL && (!near || oo.x < near.x)) near = oo;
-    }
-    if(near && (near.x - pR) < MINI.speed * 0.16) miniJump();
-  }
   MINI.raf = requestAnimationFrame(miniLoop);
 }
 function openGame(){
