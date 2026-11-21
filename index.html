@@ -1816,8 +1816,8 @@ function viewRoom(){
       + '<span class="stall-name">' + esc(s ? nm : t('room.stall', {n:i + 1})) + '</span>'
       + '<span class="stall-sub"' + (s ? ' data-live="' + esc(r.id) + ':' + esc(uid) + '"' : '') + '>'
       +   (s ? dur((Date.now() - s.startedAt) / 1000) : t('room.free')) + '</span>'
-      + (isMine ? '<span class="tag on" style="position:absolute;top:6px;left:6px;font-size:13px;padding:0 2px">' + t('badge.you') + '</span>' : '')
-      + (s && s.cheers ? '<span class="tag accent" style="position:absolute;top:6px;right:6px;font-size:13px;padding:0 2px">♥' + s.cheers + '</span>' : '')
+      + (isMine ? '<span class="tag on" style="position:absolute;top:10px;left:10px;font-size:12px;padding:0 2px;line-height:1">' + t('badge.you') + '</span>' : '')
+      + (s && s.cheers ? '<span class="tag accent" style="position:absolute;top:10px;right:10px;font-size:12px;padding:0 2px;line-height:1">♥' + s.cheers + '</span>' : '')
       + '</div>';
   }
   var action;
