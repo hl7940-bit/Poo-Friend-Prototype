@@ -487,8 +487,8 @@ ul{list-style:none;}
 }
 .tab .t-ic{display:block; height:35px;}
 .tab .t-ic svg{display:block; width:35px; height:35px; overflow:visible;}
-.tab .t-lb{display:block; height:17px;}
-.tab .t-lb svg{display:block; height:17px; width:auto; overflow:visible; margin:0 auto;}
+.tab .t-lb{display:block; height:18px;}
+.tab .t-lb svg{display:block; height:17.5px; width:auto; overflow:visible; margin:0 auto;}
 .tab.on{color:var(--ink);}
 .tab.on .t-ic{transform:rotate(-1.2deg);}
 
@@ -1234,7 +1234,7 @@ function handText(str, opt){
     x += g.a;
   }
   if(opt.underline){
-    out += '<path d="M-1 27 C' + (W * .34).toFixed(1) + ' 22.4 ' + (W * .66).toFixed(1) + ' 22 ' + (W - 2).toFixed(1) + ' 26.4" vector-effect="non-scaling-stroke"/>';
+    out += '<path d="M-3 ' + (29).toFixed(1) + ' C' + (W * .22).toFixed(1) + ' 27.4 ' + (W * .48).toFixed(1) + ' 26.6 ' + (W * .74).toFixed(1) + ' 24.6 S' + (W + 1).toFixed(1) + ' 21.6 ' + (W + 5).toFixed(1) + ' 19.6" vector-effect="non-scaling-stroke"/>';
   }
   out += '</g></svg>';
   return out;
@@ -1628,10 +1628,10 @@ function viewAuth(){
 
 function viewTabbar(){
   var items = [
-    ['home', navHome(), handText('HOME', {h:15, sw:1.9, seed:3}), t('tab.home')],
-    ['mypoo', navPoo(), handText('MY POO', {h:15, sw:1.9, seed:5}), t('tab.mypoo')],
-    ['friends', navFriends(), handText('Poo-riend', {h:15, sw:1.9, seed:7}), t('tab.friends')],
-    ['settings', navGear(), handText('Settings', {h:15, sw:1.9, seed:9}), t('tab.settings')]
+    ['home', navHome(), handText('HOME', {h:16.5, sw:1.85, seed:3}), t('tab.home')],
+    ['mypoo', navPoo(), handText('MY POO', {h:16.5, sw:1.85, seed:5}), t('tab.mypoo')],
+    ['friends', navFriends(), handText('Poo-riend', {h:16.5, sw:1.85, seed:7}), t('tab.friends')],
+    ['settings', navGear(), handText('Settings', {h:16.5, sw:1.85, seed:9}), t('tab.settings')]
   ];
   return '<span class="tab-line"></span>' + items.map(function(it){
     return '<button class="tab' + (state.tab === it[0] ? ' on' : '') + '" data-action="tab" data-tab="' + it[0] + '" aria-label="' + esc(it[3]) + '">'
