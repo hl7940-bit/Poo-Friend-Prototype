@@ -165,7 +165,8 @@ ul{list-style:none;}
 /* ---------- headers / type ---------- */
 #app > *{flex:0 0 auto;}
 /* 목록만 남는 높이를 채우고 넘치면 안에서 스크롤 (바깥 프레임·탭바 고정) */
-#app > .flist, #app > .ogrid{flex:1 1 auto; min-height:0;}
+#app > .flist, #app > .ogrid, #app > .set-scroll{flex:1 1 auto; min-height:0;}
+#app > .rooms{flex:0 1 auto; min-height:0;}
 .hd{
   display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
   padding:clamp(8px, 2dvh, 18px) 0 6px;
