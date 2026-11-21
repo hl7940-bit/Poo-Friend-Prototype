@@ -1449,23 +1449,15 @@ function floorLine(){
 }
 function groundArt(){
   var w = 430, i, out = '';
-  out += '<path d="M0 4.4 C60 1.6 130 7 200 4.2 S 340 1.4 430 4.8" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
-  out += '<g stroke="var(--line-2)" stroke-width="1.6" stroke-linecap="round" vector-effect="non-scaling-stroke">';
-  for(i=0;i<15;i++){
-    var x = 10 + i * 29 + (i % 2 ? 5 : 0);
-    out += '<path d="M' + x + ' 16 L' + (x - 7) + ' 50"/>';
-  }
-  for(i=0;i<15;i++){
-    var x2 = 22 + i * 29 + (i % 2 ? 0 : 6);
-    out += '<path d="M' + x2 + ' 58 L' + (x2 - 7) + ' 92"/>';
-  }
+  var wave = 'M0 4.4 C60 1.6 130 7 200 4.2 S 340 1.4 430 4.8';
+  out += '<path d="' + wave + ' L430 100 L0 100 Z" fill="var(--soft)" stroke="none"/>';
+  out += '<path d="' + wave + '" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
+  out += '<g stroke="var(--line-2)" stroke-width="1.5" stroke-linecap="round" vector-effect="non-scaling-stroke">';
+  for(i=0;i<15;i++){ var x1 = 8 + i * 29 + (i % 2 ? 6 : 0); out += '<path d="M' + x1 + ' 15 L' + (x1 - 6) + ' 40"/>'; }
+  for(i=0;i<15;i++){ var x2 = 21 + i * 29 + (i % 2 ? 0 : 5); out += '<path d="M' + x2 + ' 47 L' + (x2 - 6) + ' 72"/>'; }
+  for(i=0;i<15;i++){ var x3 = 10 + i * 29 + (i % 2 ? 4 : 0); out += '<path d="M' + x3 + ' 79 L' + (x3 - 6) + ' 96"/>'; }
   out += '</g>';
   return '<svg viewBox="0 0 ' + w + ' 100" preserveAspectRatio="none" aria-hidden="true">' + out + '</svg>';
-}
-function cloudSVG(w){
-  return '<svg viewBox="0 0 96 44" width="' + w + '" height="' + Math.round(w * 44 / 96) + '" fill="none" stroke="var(--line-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-    + '<path d="M20 36 C10.4 36 5 30 10.6 24.4 C7.4 17.6 15.8 12 23 16.4 C26.2 8.6 38.4 8 42.6 15.6 C51.4 13.4 57 20 52.6 26.4 C58.8 28.6 56.6 34.6 49.4 36 Z"/>'
-    + '</svg>';
 }
 function skyArt(){
   return '<span class="c1">' + cloudSVG(92) + '</span>'
