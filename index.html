@@ -665,6 +665,7 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 .g-score em{font-style:normal; font-family:var(--hand); font-size:14px; color:var(--muted); margin-left:7px;}
 .g-speed{font-family:var(--hand); font-size:14px; color:var(--muted);}
 .stage-g{
+  --gy:22%;
   position:relative; flex:1; min-height:300px;
   overflow:hidden;
   touch-action:manipulation;
@@ -678,9 +679,9 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 .stage-g .gsky .c3{left:34%; top:33%;}
 .stage-g .gsky .c4{right:22%; top:47%;}
 .stage-g .gsky .c5{left:12%; top:62%;}
-.stage-g .gground{position:absolute; left:0; right:0; bottom:0; height:40px; pointer-events:none;}
-.stage-g .gground svg{display:block; width:100%; height:40px; overflow:visible;}
-.g-poo{position:absolute; left:0; bottom:40px; width:68px; height:68px; will-change:transform;}
+.stage-g .gground{position:absolute; left:0; right:0; bottom:0; height:var(--gy); pointer-events:none;}
+.stage-g .gground svg{display:block; width:100%; height:100%; overflow:visible;}
+.g-poo{position:absolute; left:0; bottom:var(--gy); width:68px; height:68px; will-change:transform;}
 .g-poo .g-poo-in{width:100%; height:100%; transform-origin:50% 100%;}
 .g-poo svg{width:100%; height:100%; display:block; overflow:visible;}
 .g-poo.run .g-poo-in{animation:grun .42s ease-in-out infinite;}
@@ -691,11 +692,11 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 }
 .g-poo.hit .g-poo-in{animation:flash .3s steps(2) 2;}
 @keyframes flash{50%{opacity:.2;}}
-.g-shadow{position:absolute; left:0; bottom:38px; width:68px; height:13px; pointer-events:none;}
+.g-shadow{position:absolute; left:0; bottom:calc(var(--gy) - 3px); width:68px; height:13px; pointer-events:none;}
 .g-shadow svg{display:block; width:100%; height:12px; overflow:visible;}
-.g-obs{position:absolute; left:0; bottom:40px; width:60px; height:56px; will-change:transform;}
+.g-obs{position:absolute; left:0; bottom:var(--gy); width:60px; height:56px; will-change:transform;}
 .g-obs svg{display:block; width:100%; height:100%; overflow:visible;}
-.g-item{position:absolute; left:0; bottom:40px; width:46px; height:46px; will-change:transform;}
+.g-item{position:absolute; left:0; bottom:var(--gy); width:46px; height:46px; will-change:transform;}
 .g-item svg{display:block; width:100%; height:100%; overflow:visible;}
 .g-over{
   position:absolute; inset:0; display:none; z-index:6;
@@ -1444,19 +1445,19 @@ function floorLine(){
   return '<svg viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true"><path d="M1 6 C40 3.4 80 7.4 120 5 S 180 3 199 6" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linecap="round" opacity=".55"/></svg>';
 }
 function groundArt(){
-  var w = 430;
-  return '<svg viewBox="0 0 ' + w + ' 40" preserveAspectRatio="none" aria-hidden="true">'
-    + '<path d="M0 6 C60 3 130 8.4 200 5.4 S 340 2.4 430 6.2" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round"/>'
-    + '<g stroke="var(--line-2)" stroke-width="1.6" stroke-linecap="round">'
-    + '<path d="M16 14 L11 37"/><path d="M50 13 L45 36"/><path d="M86 15 L81 37"/><path d="M122 13 L117 36"/><path d="M158 15 L153 37"/>'
-    + '<path d="M194 13 L189 36"/><path d="M230 15 L225 37"/><path d="M266 13 L261 36"/><path d="M302 15 L297 37"/><path d="M338 13 L333 36"/>'
-    + '<path d="M374 15 L369 37"/><path d="M410 13 L405 36"/>'
-    + '</g></svg>';
-}
-function cloudSVG(w){
-  return '<svg viewBox="0 0 96 44" width="' + w + '" height="' + Math.round(w * 44 / 96) + '" fill="none" stroke="var(--line-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-    + '<path d="M20 36 C10.4 36 5 30 10.6 24.4 C7.4 17.6 15.8 12 23 16.4 C26.2 8.6 38.4 8 42.6 15.6 C51.4 13.4 57 20 52.6 26.4 C58.8 28.6 56.6 34.6 49.4 36 Z"/>'
-    + '</svg>';
+  var w = 430, i, out = '';
+  out += '<path d="M0 4.4 C60 1.6 130 7 200 4.2 S 340 1.4 430 4.8" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
+  out += '<g stroke="var(--line-2)" stroke-width="1.6" stroke-linecap="round" vector-effect="non-scaling-stroke">';
+  for(i=0;i<15;i++){
+    var x = 10 + i * 29 + (i % 2 ? 5 : 0);
+    out += '<path d="M' + x + ' 16 L' + (x - 7) + ' 50"/>';
+  }
+  for(i=0;i<15;i++){
+    var x2 = 22 + i * 29 + (i % 2 ? 0 : 6);
+    out += '<path d="M' + x2 + ' 58 L' + (x2 - 7) + ' 92"/>';
+  }
+  out += '</g>';
+  return '<svg viewBox="0 0 ' + w + ' 100" preserveAspectRatio="none" aria-hidden="true">' + out + '</svg>';
 }
 function skyArt(){
   return '<span class="c1">' + cloudSVG(92) + '</span>'
