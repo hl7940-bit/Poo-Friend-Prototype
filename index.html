@@ -59,7 +59,7 @@
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
 html,body{height:100%; margin:0;}
 body{
-  -webkit-text-stroke:0.28px currentColor;
+  -webkit-text-stroke:0.45px currentColor;
   background:var(--bg);
   color:var(--ink);
   font-family:var(--hand);
@@ -174,7 +174,7 @@ ul{list-style:none;}
 .btn{font-size:24px;}
 .btn.sm{padding:8px 16px; font-size:18px;}
 .btn.big{padding:15px 24px; font-size:26px;}
-.btn.ink{color:var(--bg);}
+.btn.ink{color:var(--bg); background:var(--ink); border-radius:999px;}
 .btn.ghost{color:var(--ink);}
 .btn.danger{color:var(--warn);}
 .btn[disabled]{opacity:.3; pointer-events:none;}
@@ -618,6 +618,7 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 .toast{
   position:relative;
   background:var(--ink); color:var(--bg);
+  border-radius:999px;
   padding:9px 20px;
   font-family:var(--hand); font-size:20px;
   max-width:88%; text-align:center;
@@ -683,7 +684,7 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 .g-item{position:absolute; left:0; bottom:40px; width:46px; height:46px; will-change:transform;}
 .g-item svg{display:block; width:100%; height:100%; overflow:visible;}
 .g-over{
-  position:absolute; inset:0; display:none;
+  position:absolute; inset:0; display:none; z-index:6;
   place-items:center; text-align:center;
   background:var(--bg);
   padding:24px;
@@ -1618,10 +1619,10 @@ function viewAuth(){
 
 function viewTabbar(){
   var items = [
-    ['home', navHome(), handText('HOME', {h:15, sw:1.6, seed:3}), t('tab.home')],
-    ['mypoo', navPoo(), handText('MY POO', {h:15, sw:1.6, seed:5}), t('tab.mypoo')],
-    ['friends', navFriends(), handText('Poo-riend', {h:15, sw:1.6, seed:7}), t('tab.friends')],
-    ['settings', navGear(), handText('Settings', {h:15, sw:1.6, seed:9}), t('tab.settings')]
+    ['home', navHome(), handText('HOME', {h:15, sw:1.9, seed:3}), t('tab.home')],
+    ['mypoo', navPoo(), handText('MY POO', {h:15, sw:1.9, seed:5}), t('tab.mypoo')],
+    ['friends', navFriends(), handText('Poo-riend', {h:15, sw:1.9, seed:7}), t('tab.friends')],
+    ['settings', navGear(), handText('Settings', {h:15, sw:1.9, seed:9}), t('tab.settings')]
   ];
   return '<span class="tab-line"></span>' + items.map(function(it){
     return '<button class="tab' + (state.tab === it[0] ? ' on' : '') + '" data-action="tab" data-tab="' + it[0] + '" aria-label="' + esc(it[3]) + '">'
@@ -2785,7 +2786,6 @@ function buildGame(){
   host.classList.add('open');
   host.setAttribute('aria-hidden', 'false');
   paintFrames(host);
-  paintFrames(host.querySelector('.g-over'));
   return host;
 }
 function miniLives(){
@@ -2904,7 +2904,7 @@ function miniOver(){
   var newBest = false;
   if(MINI.score > gameBest()){ state.best = MINI.score; save(); newBest = true; }
   var over = document.getElementById('g-over');
-  if(over) over.classList.add('on');
+  if(over){ over.classList.add('on'); paintFrames(over); }
   var s = document.querySelector('#g-over .s');
   if(s) s.innerHTML = (newBest ? t('game.newBest') + ' · ' : '')
     + t('game.score') + ' <em>' + MINI.score + '</em> · ' + t('game.best') + ' <em>' + gameBest() + '</em>';
