@@ -589,11 +589,11 @@ ul{list-style:none;}
 .sheet-actions{display:flex; gap:12px; margin-top:24px;}
 .sheet-actions .btn{flex:1;}
 
-.field{display:block; margin:22px 0 0;}
-.field .k{display:block; font-family:var(--hand); font-size:16px; color:var(--muted); margin:0 2px 6px;}
+.field{display:block; margin:clamp(8px, 1.9dvh, 22px) 0 0;}
+.field .k{display:block; font-family:var(--hand); font-size:clamp(12px, 1.8dvh, 16px); color:var(--muted); margin:0 2px clamp(3px, .6dvh, 6px);}
 .field input[type=text],.field input[type=tel],.field input[type=password]{
   width:100%; background-color:transparent; position:relative;
-  padding:9px 4px 12px; font-family:var(--hand); font-size:24px; outline:none;
+  padding:clamp(4px, .9dvh, 9px) 4px clamp(6px, 1.2dvh, 12px); font-family:var(--hand); font-size:clamp(17px, 2.6dvh, 24px); outline:none;
   border:0; border-radius:0;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='8' viewBox='0 0 300 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C50 2.4 110 6.4 160 4.2 S 250 2 299 5' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;
@@ -708,8 +708,8 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + clamp(120px, 19
 
 /* ---------- auth ---------- */
 .auth{display:flex; flex-direction:column; justify-content:center; padding:clamp(16px, 6dvh, 64px) 0 clamp(16px, 3dvh, 30px); min-height:100%;}
-.auth-mark{display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:22px;}
-.auth-mark svg{width:118px; height:auto; overflow:visible;}
+.auth-mark{display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:clamp(8px, 1.8dvh, 22px);}
+.auth-mark svg{width:clamp(72px, 11dvh, 118px); height:auto; overflow:visible;}
 .auth-title{text-align:center; line-height:1;}
 .auth-title .auth-wm{
   position:relative; display:inline-block;
@@ -724,11 +724,13 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + clamp(120px, 19
 [data-theme="dark"] .auth-title .auth-wm:after{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='10' viewBox='0 0 150 10' preserveAspectRatio='none'%3E%3Cpath d='M1 6.6 C20 3.4 44 3.1 66 5.1 S 108 7.6 124 4.6 S 142 3.2 149 5.2' fill='none' stroke='%23F5F5F5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
 }
-.auth-tag{font-family:var(--hand); font-size:17px; color:var(--muted); text-align:center; margin-top:10px;}
-.auth-form{margin-top:26px;}
-.auth .btn{margin-top:14px;}
-.auth-langs{display:flex; justify-content:center; gap:12px; margin-top:20px; flex-wrap:wrap;}
-.auth-langs button{font-family:var(--hand); font-size:17px; color:var(--muted); padding:2px 10px;}
+.auth-tag{font-family:var(--hand); font-size:clamp(13px, 2dvh, 17px); color:var(--muted); text-align:center; margin-top:clamp(4px, 1dvh, 10px);}
+.auth-form{margin-top:clamp(10px, 2.2dvh, 26px);}
+.auth .btn{margin-top:clamp(8px, 1.5dvh, 14px);}
+.auth .foot{margin-top:clamp(6px, 1.4dvh, 14px); font-size:clamp(11px, 1.7dvh, 15px); padding-bottom:2px;}
+.auth .err{min-height:14px; margin:4px 2px 0;}
+.auth-langs{display:flex; justify-content:center; gap:12px; margin-top:clamp(8px, 1.6dvh, 20px); flex-wrap:wrap;}
+.auth-langs button{font-family:var(--hand); font-size:clamp(13px, 2dvh, 17px); color:var(--muted); padding:2px 10px;}
 .auth-langs button.on{color:var(--ink);}
 
 /* ---------- game ---------- */
