@@ -270,7 +270,8 @@ ul{list-style:none;}
 .card + .card{margin-top:12px;}
 
 /* ---------- home ---------- */
-.rooms{display:flex; flex-direction:column; gap:clamp(9px, 1.9dvh, 16px); margin-top:clamp(10px, 2.6dvh, 22px);}
+.rooms{display:flex; flex-direction:column; gap:clamp(9px, 1.9dvh, 16px); margin-top:clamp(10px, 2.6dvh, 22px); flex:0 1 auto; min-height:0; overflow-y:auto; padding:3px 2px; scrollbar-width:none; overscroll-behavior:contain;}
+.rooms::-webkit-scrollbar{display:none;}
 .room{
   position:relative;
   display:flex; align-items:center; gap:clamp(12px, 3vw, 18px);
@@ -481,6 +482,12 @@ ul{list-style:none;}
 .fbadges .tag{font-size:16px;}
 
 /* ---------- settings ---------- */
+.set-scroll{
+  flex:1 1 auto; min-height:0; overflow-y:auto;
+  scrollbar-width:none; overscroll-behavior:contain;
+  padding:0 2px 6px;
+}
+.set-scroll::-webkit-scrollbar{display:none;}
 .set-sec{margin-top:clamp(12px, 2.4dvh, 26px);}
 .set-sec > .h{font-family:var(--hand); font-size:clamp(12px, 1.9dvh, 17px); color:var(--muted); margin:0 2px 6px;}
 .row{
@@ -1958,6 +1965,7 @@ function viewSettings(){
       return '<button data-action="autoLogout" data-min="' + p[0] + '" class="' + (state.prefs.autoLogout === p[0] ? 'on' : '') + '">' + p[1] + '</button>';
     }).join('');
   return brandRow()
+    + '<div class="set-scroll">'
     + '<h1 class="page-h1">' + t('settings.title') + '</h1>'
     + '<div class="set-sec"><p class="h">' + t('settings.account') + '</p><section class="card" style="padding:0">'
     +   '<div class="row"><div class="lbl"><span>' + t('settings.nick') + '</span></div><div class="val"><b>' + esc(u.name || '-') + '</b></div></div>'
@@ -1984,7 +1992,8 @@ function viewSettings(){
     + '</section></div>'
     + '<div style="height:18px"></div>'
     + '<button class="btn wide" data-action="logoutAsk">' + t('settings.logout') + '</button>'
-    + '<p class="foot">' + t('settings.about') + '</p>';
+    + '<p class="foot">' + t('settings.about') + '</p>'
+    + '</div>';
 }
 
 /* ===================== render ===================== */
@@ -2862,6 +2871,9 @@ var GG = {
   apex:200, hitMargin:0.15
 };
 
+/* QA telemetry (temporary build only — removed before ship) */
+window.__qa = {maxPy:0, airStart:0, airs:[], hits:0, pass:[]};
+
 function gameBest(){ return state.best || 0; }
 
 function buildGame(){
@@ -2997,6 +3009,7 @@ function spawnPattern(){
 }
 function miniHit(){
   if(MINI.inv > 0 || MINI.over) return;
+  if(window.__qa) window.__qa.hits++;
   MINI.lives--;
   MINI.inv = 1.1;
   var pl = document.getElementById('g-player');
@@ -3046,6 +3059,11 @@ function miniLoop(ts){
   MINI.vy -= GG.grav * dt;
   MINI.py += MINI.vy * dt;
   if(MINI.py <= 0){ MINI.py = 0; MINI.vy = 0; MINI.coyote = 0; }
+  if(window.__qa){
+    if(MINI.py > window.__qa.maxPy) window.__qa.maxPy = MINI.py;
+    if(MINI.py > 1 && !window.__qa.airStart) window.__qa.airStart = performance.now();
+    if(MINI.py <= 0 && window.__qa.airStart){ window.__qa.airs.push(Math.round(performance.now() - window.__qa.airStart)); window.__qa.airStart = 0; }
+  }
   var pl = document.getElementById('g-player');
   if(pl){
     pl.style.transform = 'translate3d(0,' + (-MINI.py).toFixed(1) + 'px,0)';
@@ -3093,6 +3111,7 @@ function miniLoop(ts){
       continue;
     }
     if(pR > o.x + o.w * M && pL < o.x + o.w * (1 - M) && pB < o.h * (1 - M)) miniHit();
+    if(window.__qa && pR > o.x && pL < o.x + o.w) window.__qa.pass.push(Math.round(pB));
   }
 
   /* --- toilet paper: spawned once, only removed after it passes, never re-created --- */
