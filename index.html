@@ -690,7 +690,7 @@ ul{list-style:none;}
 
 /* ---------- toast ---------- */
 #toast-layer{position:absolute; left:0; right:0; bottom:calc(92px + env(safe-area-inset-bottom,0px)); display:flex; justify-content:center; pointer-events:none; z-index:110;}
-body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:auto;}
+body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + clamp(120px, 19dvh, 170px)); bottom:auto;}
 .toast{
   position:relative;
   background:var(--ink); color:var(--bg);
