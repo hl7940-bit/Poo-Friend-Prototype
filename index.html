@@ -653,7 +653,7 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 /* ---------- game ---------- */
 #game{position:fixed; inset:0; z-index:80; display:none; background:var(--bg);}
 #game.open{display:flex; flex-direction:column; align-items:center; justify-content:center;}
-.g-wrap{width:100%; max-width:430px; margin:0 auto; flex:1; max-height:min(940px,100dvh); display:flex; flex-direction:column; min-height:0;}
+.g-wrap{width:100%; max-width:430px; margin:auto; flex:0 1 auto; max-height:100dvh; display:flex; flex-direction:column; min-height:0;}
 .g-head{display:flex; align-items:flex-start; gap:12px; padding:16px 20px 8px;}
 .g-head .t{flex:1;}
 .g-head .t b{display:block; font-family:var(--hand); font-size:27px; font-weight:400; letter-spacing:0; line-height:1.1;}
@@ -665,12 +665,13 @@ body.gaming #toast-layer{top:calc(env(safe-area-inset-top,0px) + 110px); bottom:
 .g-score em{font-style:normal; font-family:var(--hand); font-size:14px; color:var(--muted); margin-left:7px;}
 .g-speed{font-family:var(--hand); font-size:14px; color:var(--muted);}
 .stage-g{
-  position:relative; flex:1; min-height:260px; max-height:600px;
+  position:relative; flex:1; min-height:300px; max-height:480px;
   overflow:hidden;
   touch-action:manipulation;
   background:var(--bg);
 }
-.stage-g .gsky{position:absolute; inset:0; pointer-events:none; opacity:.5;}
+.stage-g .gsky{position:absolute; inset:0; pointer-events:none; opacity:.55;}
+.stage-g .gsky svg{display:block; width:100%; height:100%;}
 .stage-g .gground{position:absolute; left:0; right:0; bottom:0; height:40px; pointer-events:none;}
 .stage-g .gground svg{display:block; width:100%; height:40px; overflow:visible;}
 .g-poo{position:absolute; left:0; bottom:40px; width:68px; height:68px; will-change:transform;}
@@ -1444,6 +1445,14 @@ function groundArt(){
     + '<path d="M16 14 L11 37"/><path d="M50 13 L45 36"/><path d="M86 15 L81 37"/><path d="M122 13 L117 36"/><path d="M158 15 L153 37"/>'
     + '<path d="M194 13 L189 36"/><path d="M230 15 L225 37"/><path d="M266 13 L261 36"/><path d="M302 15 L297 37"/><path d="M338 13 L333 36"/>'
     + '<path d="M374 15 L369 37"/><path d="M410 13 L405 36"/>'
+    + '</g></svg>';
+}
+function skyArt(){
+  return '<svg viewBox="0 0 430 320" preserveAspectRatio="xMidYMin slice" aria-hidden="true">'
+    + '<g fill="none" stroke="var(--line-2)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'
+    + '<path d="M54 74 C45.6 74 41 68.4 46 63 C43 56.4 51 51 58 55.4 C61 48 72 47.4 76 54.4 C84 52.4 89 58.4 85 64.4 C91 66.4 89 73.4 82 74 Z"/>'
+    + '<path d="M298 46 C290 46 286 40.4 291 35 C288 28 296 23 303 27 C306 20 317 19 321 26 C329 24 334 30 330 36 C336 38 334 45 327 46 Z"/>'
+    + '<path d="M368 132 C363 132 360 128.6 363 125.4 C361 121.4 366 118 370 120.6 C372 116 379 115.6 381 120 C386 118.8 389 122.4 386.6 126 C390 127.2 388.6 131.6 384.4 132 Z"/>'
     + '</g></svg>';
 }
 function shadowArt(){
@@ -2778,6 +2787,7 @@ function buildGame(){
     +   '</div>'
     + '</div>'
     + '<div class="stage-g" id="g-stage">'
+    +   '<div class="gsky">' + skyArt() + '</div>'
     +   '<div class="gground">' + groundArt() + '</div>'
     +   '<div class="g-shadow" id="g-shadow">' + shadowArt() + '</div>'
     +   '<div class="g-poo run" id="g-player"><div class="g-poo-in">' + pooSVG(state.myPoo, 68) + '</div></div>'
