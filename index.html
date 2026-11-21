@@ -2864,15 +2864,16 @@ var MINI = {
   nextObs:0, nextItem:0, grace:0, lvl:0, runState:null, coyote:0
 };
 /* v5 jump feel: 낮은 중력 + 높은 초속도 = 높고 넓은 포물선
-   꼭대기 = jump^2 / (2*grav) = 800^2 / 3200 = 200px, 체공 = 2*jump/grav = 1.0s */
+   이론값 꼭대기 = jump^2 / (2*grav) ≈ 215px, 체공 = 2*jump/grav ≈ 1.05s
+   (프레임 단위 적분에서 조금 깎여 실제 꼭대기 ≈ 195~208px, 체공 ≈ 0.96~1.04s) */
 var GG = {
-  grav:1600, jump:800, plX:0, plW:68, plH:68, ground:40,
+  grav:1560, jump:820, plX:0, plW:68, plH:68, ground:40,
   obsW:60, obsH:56, tpW:46, tpBox:44,
-  apex:200, hitMargin:0.15
+  apex:215, hitMargin:0.15
 };
 
 /* QA telemetry (temporary build only — removed before ship) */
-window.__qa = {maxPy:0, airStart:0, airs:[], hits:0, pass:[]};
+window.__qa = {maxPy:0, airStart:0, airs:[], hits:0, pass:[], groups:[], auto:(location.search.indexOf('qa=1') >= 0), t0:performance.now()};
 
 function gameBest(){ return state.best || 0; }
 
@@ -3005,6 +3006,7 @@ function spawnPattern(){
   else if(r < p3 + p2) n = 2;
   var base = MINI.W + 46;
   for(var i=0;i<n;i++) spawnToilet(base + i * (GG.obsW + 10));
+  if(window.__qa) for(var qi=MINI.obs.length-n; qi<MINI.obs.length; qi++) MINI.obs[qi].qaN = n;
   MINI.nextObs = (gapDist() + (n - 1) * (GG.obsW + 10)) / MINI.speed;
 }
 function miniHit(){
@@ -3106,12 +3108,18 @@ function miniLoop(ts){
     o.x -= MINI.speed * dt;
     if(o.el) o.el.style.transform = 'translate3d(' + o.x.toFixed(1) + 'px,0,0)';
     if(o.x + o.w < -30){
+      if(window.__qa && o.qaMin !== undefined) window.__qa.groups.push({n:o.qaN||1, min:Math.round(o.qaMin), hit:!!o.qaHit});
       if(o.el && o.el.parentNode) o.el.parentNode.removeChild(o.el);
       MINI.obs.splice(i, 1);
       continue;
     }
-    if(pR > o.x + o.w * M && pL < o.x + o.w * (1 - M) && pB < o.h * (1 - M)) miniHit();
-    if(window.__qa && pR > o.x && pL < o.x + o.w) window.__qa.pass.push(Math.round(pB));
+    var oHit = (pR > o.x + o.w * M && pL < o.x + o.w * (1 - M) && pB < o.h * (1 - M));
+    if(oHit) miniHit();
+    if(window.__qa && pR > o.x - 4 && pL < o.x + o.w + 4){
+      if(o.qaMin === undefined) o.qaMin = 1e9;
+      o.qaMin = Math.min(o.qaMin, pB);
+      if(oHit) o.qaHit = true;
+    }
   }
 
   /* --- toilet paper: spawned once, only removed after it passes, never re-created --- */
@@ -3140,6 +3148,14 @@ function miniLoop(ts){
     }
   }
 
+  if(window.__qa && window.__qa.auto && !MINI.over && MINI.py <= 0.5){
+    var near = null;
+    for(i=0;i<MINI.obs.length;i++){
+      var oo = MINI.obs[i];
+      if(oo.x + oo.w >= pL && (!near || oo.x < near.x)) near = oo;
+    }
+    if(near && (near.x - pR) < MINI.speed * 0.16) miniJump();
+  }
   MINI.raf = requestAnimationFrame(miniLoop);
 }
 function openGame(){
