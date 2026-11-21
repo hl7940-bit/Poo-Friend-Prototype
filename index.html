@@ -480,15 +480,15 @@ ul{list-style:none;}
 .tab{
   position:relative;
   flex:1;
-  display:flex; flex-direction:column; align-items:center; gap:5px;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
   padding:10px 0 2px;
   color:var(--muted);
   transition:color .15s ease;
 }
 .tab .t-ic{display:block; height:35px;}
 .tab .t-ic svg{display:block; width:35px; height:35px; overflow:visible;}
-.tab .t-lb{display:block; height:18px;}
-.tab .t-lb svg{display:block; height:17.5px; width:auto; overflow:visible; margin:0 auto;}
+.tab .t-lb{display:block; height:21px;}
+.tab .t-lb svg{display:block; height:20px; width:auto; overflow:visible; margin:0 auto;}
 .tab.on{color:var(--ink);}
 .tab.on .t-ic{transform:rotate(-1.2deg);}
 
@@ -1365,7 +1365,7 @@ function navHome(){
 }
 function navPoo(){
   return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-    + '<path d="M3.4 21 C1.4 19.4 2.2 17.4 5 16.6 C3.2 13.6 5.6 11 8.8 11.4 C8.4 7.8 11.6 6 13.4 8.8 C15.2 6.4 18.2 7.4 18.2 10.4 C21 10.4 22.2 13.2 20.4 15 C22.4 16.2 21.8 19.6 19 20.6 C14.4 22.4 7 22.2 3.4 21 Z"/>'
+    + '<path d="M12.8 3.4 C11.2 4.8 10.9 6.6 12.1 7.5 C9.2 7.8 7.5 9.6 8.4 11.4 C5.6 12 4.3 14.2 5.6 16 C3.3 16.9 2.5 19.2 4.5 20.5 C7.7 22.6 16.3 22.6 19.5 20.5 C21.5 19.2 20.7 16.9 18.4 16 C19.7 14.2 18.4 12 15.6 11.4 C16.5 9.6 14.8 7.8 11.9 7.5 C13.1 6.6 12.8 4.8 12.8 3.4 Z"/>'
     + '</svg>';
 }
 function navFriends(){
@@ -1647,10 +1647,10 @@ function viewAuth(){
 
 function viewTabbar(){
   var items = [
-    ['home', navHome(), handText('HOME', {h:16.5, sw:1.85, seed:3}), t('tab.home')],
-    ['mypoo', navPoo(), handText('MY POO', {h:16.5, sw:1.85, seed:5}), t('tab.mypoo')],
-    ['friends', navFriends(), handText('Poo-riend', {h:16.5, sw:1.85, seed:7}), t('tab.friends')],
-    ['settings', navGear(), handText('Settings', {h:16.5, sw:1.85, seed:9}), t('tab.settings')]
+    ['home', navHome(), handText('HOME', {h:20, sw:1.9, seed:3}), t('tab.home')],
+    ['mypoo', navPoo(), handText('MY POO', {h:20, sw:1.9, seed:5}), t('tab.mypoo')],
+    ['friends', navFriends(), handText('Poo-riend', {h:20, sw:1.9, seed:7}), t('tab.friends')],
+    ['settings', navGear(), handText('Settings', {h:20, sw:1.9, seed:9}), t('tab.settings')]
   ];
   return '<span class="tab-line"></span>' + items.map(function(it){
     return '<button class="tab' + (state.tab === it[0] ? ' on' : '') + '" data-action="tab" data-tab="' + it[0] + '" aria-label="' + esc(it[3]) + '">'
