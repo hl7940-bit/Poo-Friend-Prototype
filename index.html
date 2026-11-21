@@ -418,9 +418,10 @@ ul{list-style:none;}
 .favo svg{display:block; overflow:visible;}
 .finfo{flex:1; min-width:0;}
 .fname{display:flex; align-items:center; gap:6px; font-family:var(--hand); font-size:23px; letter-spacing:0;}
-.fname .me{font-family:var(--hand); font-size:13px; color:var(--muted);}
+.fname .me{font-family:var(--hand); font-size:15px; color:var(--muted);}
 .fsub{display:block; font-family:var(--hand); font-size:15px; color:var(--muted); margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.fbadges{display:flex; flex-direction:column; align-items:flex-end; gap:2px; flex:none;}
+.fbadges{display:flex; flex-direction:column; align-items:flex-end; gap:1px; flex:none;}
+.fbadges .tag{font-size:16px;}
 
 /* ---------- settings ---------- */
 .set-sec{margin-top:28px;}
@@ -522,9 +523,16 @@ ul{list-style:none;}
 .field{display:block; margin:22px 0 0;}
 .field .k{display:block; font-family:var(--hand); font-size:16px; color:var(--muted); margin:0 2px 6px;}
 .field input[type=text],.field input[type=tel],.field input[type=password]{
-  width:100%; background:var(--bg); position:relative;
-  padding:11px 14px; font-family:var(--hand); font-size:22px; outline:none;
+  width:100%; background-color:transparent; position:relative;
+  padding:9px 4px 12px; font-family:var(--hand); font-size:24px; outline:none;
   border:0; border-radius:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='8' viewBox='0 0 300 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C50 2.4 110 6.4 160 4.2 S 250 2 299 5' fill='none' stroke='%23111111' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:0 100%;
+  background-size:100% 8px;
+}
+[data-theme="dark"] .field input[type=text],[data-theme="dark"] .field input[type=tel],[data-theme="dark"] .field input[type=password]{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='8' viewBox='0 0 300 8' preserveAspectRatio='none'%3E%3Cpath d='M1 5.2 C50 2.4 110 6.4 160 4.2 S 250 2 299 5' fill='none' stroke='%23F5F5F5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 .field input::placeholder{color:var(--muted); opacity:.6;}
 .err{min-height:18px; font-family:var(--hand); font-size:16px; color:var(--warn); margin:8px 2px 0;}
@@ -1281,7 +1289,7 @@ function roughRect(w, h, r, seed, amp){
   }
   return d + ' Z';
 }
-var SK_SEL = '.bx,.knob,.card,.room,.wall,.stall,.pooping,.big-poop-btn,.btn,.add-btn,.ocard,.frow,.stat,.empty,.panel,.stage,.profile-stage,.toast,.field input,.lang-grid button,.seg-mini button,.cell.has,.cell.sel,.ib,.x,.cal-nav button,.sw';
+var SK_SEL = '.bx,.knob,.card,.room,.wall,.stall,.pooping,.big-poop-btn,.btn,.add-btn,.ocard,.frow,.stat,.empty,.panel,.stage,.profile-stage,.toast,.lang-grid button,.seg-mini button,.cell.has,.cell.sel,.ib,.x,.cal-nav button,.sw';
 var skSeed = 3;
 function skRadius(el, w, h){
   var cl = el.className || '';
@@ -1403,11 +1411,11 @@ function iconFlush(){
 function iconTP(size){
   var w = size || 26;
   return '<svg viewBox="0 0 64 64" width="' + w + '" height="' + w + '" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-    + '<path d="M13 19 L13 44 C13 50.6 21 55 30 55 C39 55 47 50.6 47 44 L47 19" fill="var(--bg)"/>'
-    + '<path d="M13 19 C13 25 47 25 47 19 C47 13 13 13 13 19 Z" fill="var(--bg)"/>'
-    + '<ellipse cx="30" cy="19" rx="5" ry="2.4" fill="none"/>'
-    + '<path d="M47 25 C51.6 26.6 52.4 32 49.8 37.6"/>'
-    + '<path d="M18.6 22.6 L18.4 42" opacity=".45"/>'
+    + '<path d="M13 18 L13 42 C13 48.6 20.6 53 29 53 C37.4 53 45 48.6 45 42 L45 18" fill="var(--bg)"/>'
+    + '<path d="M13 18 C13 24 45 24 45 18 C45 12 13 12 13 18 Z" fill="var(--bg)"/>'
+    + '<ellipse cx="29" cy="18" rx="5.2" ry="2.4"/>'
+    + '<path d="M13 30 C18 27.4 24 26.4 29 26.6 C34 26.8 40 27.6 45 30" opacity=".5"/>'
+    + '<path d="M45 26 C50.6 29 52 35.6 49.4 40.6 C47.4 44.4 48.4 48.4 51 51" fill="none"/>'
     + '</svg>';
 }
 function iconGame(){
